@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Men's Conference Sign-up</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e6f2ff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: linear-gradient(135deg, #0066cc, #004080);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            color: white;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: white;
+        }
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #0088ff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 14px 20px;
+            width: 100%;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #005bb5;
+        }
+        .error-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+        .error-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 400px;
+            color: #333;
+        }
+        .error-content h2 {
+            color: #d32f2f;
+            margin-top: 0;
+        }
+        .error-button {
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .error-button:hover {
+            background-color: #e91e63;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Men's Conference 2025</h1>
+            <div class="subtitle">Join us for a transformative experience. Register now!</div>
+        </div>
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" required>
+            </div>
+            <div class="form-group">
+                <label for="idNumber">ID Number</label>
+                <input type="text" id="idNumber" name="idNumber" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Cell Phone Number</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" required>
+            </div>
+            <button type="submit">Register Now</button>
+        </form>
+    </div>
+
+    <div class="error-modal" id="errorModal">
+        <div class="error-content">
+            <h2>No Ladies Allowed</h2>
+            <p>Sorry Duncan, this event is for men only.</p>
+            <p>Redirecting you to the Women's Conference registration page...</p>
+            <button class="error-button" id="redirectButton">Continue to Women's Conference</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value.trim();
+            
+            // Make case-insensitive comparison and check for both spaces and no spaces
+            const normalizedName = fullName.toLowerCase().replace(/\s+/g, '');
+            const targetName = 'duncansihongo';
+            
+            console.log("Entered name (normalized):", normalizedName);
+            console.log("Target name:", targetName);
+            
+            if (normalizedName === targetName || fullName.toLowerCase() === 'duncan sihongo') {
+                console.log("Name match detected!");
+                // Show error modal
+                document.getElementById('errorModal').style.display = 'flex';
+                
+                // Set timeout for redirection
+                setTimeout(() => {
+                    redirectToWomensConference();
+                }, 5000);
+            } else {
+                // Regular submission logic would go here
+                alert('Registration successful! Thank you for signing up.');
+                this.reset();
+            }
+        });
+        
+        document.getElementById('redirectButton').addEventListener('click', function() {
+            redirectToWomensConference();
+        });
+        
+        function redirectToWomensConference() {
+            // In a real application, this would redirect to another page
+            // For demo purposes, we'll just simulate it
+            alert('Redirecting to Women\'s Conference registration page...');
+            document.getElementById('errorModal').style.display = 'none';
+            
+            // Change the header to Women's Conference
+            document.querySelector('.header h1').textContent = 'Women\'s Conference 2025';
+            document.querySelector('.container').style.background = 'linear-gradient(135deg, #FF69B4, #C71585)';
+            document.querySelector('button').style.backgroundColor = '#FF1493';
+        }
+    </script>
+</body>
+</html>
